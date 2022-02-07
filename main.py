@@ -36,4 +36,18 @@ for word in range(0, len(chapter_indexes)):
         else:
             running = False
     extras += extra_words
-print(split_text)
+extra_chars = "\"'?!.-"
+for word in range(0, len(split_text)):
+    iterated_word = split_text[word].lower().strip('\'"?!.-')
+    for char in extra_chars:
+        while char in iterated_word:
+            iterated_word = iterated_word.replace(char, "")
+    split_text[word] = iterated_word
+unique_words = set(split_text)
+word_count = {}
+for word in split_text:
+    try:
+        word_count[word] += 1
+    except KeyError:
+        word_count[word] = 1
+print(word_count)
