@@ -36,9 +36,9 @@ for word in range(0, len(chapter_indexes)):
         else:
             running = False
     extras += extra_words
-extra_chars = "\"'?!.-"
+extra_chars = "\"'?!.-()_[]`;,:|\\/"
 for word in range(0, len(split_text)):
-    iterated_word = split_text[word].lower().strip('\'"?!.-')
+    iterated_word = split_text[word].lower().strip(extra_chars)
     for char in extra_chars:
         while char in iterated_word:
             iterated_word = iterated_word.replace(char, "")
@@ -50,4 +50,11 @@ for word in split_text:
         word_count[word] += 1
     except KeyError:
         word_count[word] = 1
-print(word_count)
+
+sw_removed_word_count = {}
+for key in word_count.keys():
+    if key not in stopwords:
+        sw_removed_word_count[key] = word_count[key]
+sw_removed_unique_words = set(sw_removed_word_count)
+sorted_word_count = sorted(sw_removed_word_count)
+print(sw_removed_word_count)
